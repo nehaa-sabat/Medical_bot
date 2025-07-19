@@ -43,6 +43,6 @@ embedding_model = get_embedding_model()
 
 # 4.store embeddings in FAISS
 
-DB_path = "vectorstore/db_faiss"
-db = FAISS.from_documents(chunk,embedding_model)
-db.save_local(DB_path)
+# DB_path = "vectorstore/db_faiss"
+# db = FAISS.from_documents(chunk,embedding_model)
+# db.save_local(DB_path)
