@@ -37,5 +37,4 @@ Built using **LangChain**, **FAISS vector store**, and **Groq API**, and deploye
 
 ---
 
-## 📂 Project Structure
 
