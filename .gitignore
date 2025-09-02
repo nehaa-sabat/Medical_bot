@@ -1,2 +1,9 @@
+# Ignore environment and secrets
 .env
-".env" 
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+
+# Ignore FAISS database (can regenerate)
+vectorstore/

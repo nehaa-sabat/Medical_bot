@@ -1,8 +1,8 @@
-
-from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain_community.document_loaders import PyMuPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+import os
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -13,13 +13,23 @@ load_dotenv(find_dotenv())
 DATA_PATH = "Data/"
 
 # function to load the PDF
+# function to load the PDF
 def load_pdf_file(Data):
-    loader = DirectoryLoader(Data, glob="*.pdf", loader_cls=PyPDFLoader)
+    loader = DirectoryLoader(Data, glob="*.pdf", loader_cls=PyMuPDFLoader)
     documents = loader.load()
     return documents
 
-# No of pages in the document
+# Load documents
 document = load_pdf_file(DATA_PATH)
+
+# Debug: print all loaded sources
+for doc in document:
+    print("Loaded:", doc.metadata.get("source", "Unknown"))
+
+# pages = len(document)
+# print(pages)
+
+
 # pages = len(document)
 # print(pages)
 
@@ -30,7 +40,7 @@ def create_chunks(extracted_data):
     text_chunk = text_splitter.split_documents(extracted_data)
     return text_chunk
 
-chunk = create_chunks(extracted_data=document)
+chunks = create_chunks(extracted_data=document)
 # print(len(chunk))
 
 
@@ -43,6 +53,14 @@ embedding_model = get_embedding_model()
 
 # 4.store embeddings in FAISS
 
-# DB_path = "vectorstore/db_faiss"
-# db = FAISS.from_documents(chunk,embedding_model)
-# db.save_local(DB_path)
+DB_PATH = "vectorstore/db_faiss"
+
+# Ensure directory exists
+os.makedirs(DB_PATH, exist_ok=True)
+
+print("💾 Creating FAISS index...")
+db = FAISS.from_documents(chunks, embedding_model)
+db.save_local(DB_PATH)
+print(f"✅ FAISS index saved at {DB_PATH}")
+
+
