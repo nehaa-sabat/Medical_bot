@@ -5,5 +5,3 @@ __pycache__/
 .DS_Store
 venv/
 
-# Ignore FAISS database (can regenerate)
-# 
