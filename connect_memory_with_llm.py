@@ -49,8 +49,8 @@ def set_custom_prompt(CUSTOM_PROMPT_TEMPLATE):
     return prompt
 
 # load model
-DB_FAISS_PATH = "vectorstore/db_faiss"
-embedding_model = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
+DB_FAISS_PATH = os.path.join("vectorstore", "db_faiss")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 db = FAISS.load_local(DB_FAISS_PATH, embeddings=embedding_model, allow_dangerous_deserialization=True)
 
 # create chain

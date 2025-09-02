@@ -10,15 +10,15 @@ from dotenv import load_dotenv, find_dotenv
 # Load environment variables
 load_dotenv(find_dotenv())
 
-DB_FAISS_PATH = "vectorstore/db_faiss"
+DB_FAISS_PATH = os.path.join("vectorstore", "db_faiss")
 
 @st.cache_resource
 def get_vectorstore():
     if not os.path.exists(DB_FAISS_PATH):
         st.error("⚠️ Vector database not found! Please run create_memory.py first.")
         return None
-    embedding_model = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
-    db = FAISS.load_local(DB_FAISS_PATH, embedding_model, allow_dangerous_deserialization=True)
+    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    db = FAISS.load_local(DB_FAISS_PATH, embeddings=embedding_model, allow_dangerous_deserialization=True)
     return db
 
 def set_custom_prompt(custom_prompt_template):
