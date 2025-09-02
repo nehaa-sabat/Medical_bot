@@ -26,6 +26,7 @@ An AI-based **context-aware medical assistant** that provides reliable responses
 ---
 
 ## 📂 Project Structure  
+```
 Medical-Chatbot/
 │── Data/ # PDF knowledge base
 │ └── The_GALE_ENCYCLOPEDIA_of_MEDICINE_SECOND.pdf
@@ -36,7 +37,7 @@ Medical-Chatbot/
 │── README.md # Project documentation
 │── .env # API keys (Groq, HuggingFace)
 
-
+```
 ---
 
 ## ⚡ Quickstart  
